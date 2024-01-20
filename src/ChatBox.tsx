@@ -1,9 +1,5 @@
 import * as React from "react";
-import { Image, Text } from "@mirohq/websdk-types";
-interface ChatBoxProps {
-  myItem: Image;
-  myText: Text;
-}
+import { myItem } from "./app";
 
 const expressEmotion = async (chat: string) => {
   const myChatBubble = await miro.board.createShape({
@@ -21,8 +17,8 @@ const expressEmotion = async (chat: string) => {
       borderWidth: 2, // Default border width
       fillOpacity: 1.0, // Default fill color opacity: no opacity
     },
-    // x: myItem.x + 180,
-    // y: myItem.y - 120,
+    x: myItem.x + 180,
+    y: myItem.y - 120,
     width: 300,
     height: 250,
   });

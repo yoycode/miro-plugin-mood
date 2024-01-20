@@ -7,8 +7,8 @@ import { DropCharacters } from "./drop_characters";
 import { moveLeft, moveRight, moveUp, moveDown, jump } from "./action/move";
 import ChatBox from "./ChatBox";
 
-let myItem: Image; // 내 캐릭터
-let myText: Text; // 내 캐릭터
+export let myItem: Image; // 내 캐릭터
+export let myText: Text; // 내 캐릭터
 let chatContent: string; // 채팅용
 
 // async function getUserName(userId: string) : Promise<string> {
@@ -91,6 +91,10 @@ const App: React.FC = () => {
     //addSticky();
   }, []);
 
+  const onClickAddButton = () => {
+    addCharacter();
+  };
+
   return (
     <div className="grid wrapper">
       <div className="cs1 ce12">
@@ -101,7 +105,7 @@ const App: React.FC = () => {
         <h1>Congratulations!</h1>
         <p>Welcome to Moooood</p>
       </div>
-      <button className="button button-danger" onClick={addCharacter}>
+      <button className="button button-danger" onClick={onClickAddButton}>
         +
       </button>
       <div className="cs1 ce12">
