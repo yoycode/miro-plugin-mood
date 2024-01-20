@@ -5,10 +5,11 @@ import "../src/assets/style.css";
 import { Image, Text } from "@mirohq/websdk-types";
 import { DropCharacters } from "./drop_characters";
 import { moveLeft, moveRight, moveUp, moveDown, jump } from "./action/move";
+import ChatBox from "./ChatBox";
 
-var myItem: Image; // 내 캐릭터
-var myText: Text; // 내 캐릭터
-var chatContent: string; // 채팅용
+let myItem: Image; // 내 캐릭터
+let myText: Text; // 내 캐릭터
+let chatContent: string; // 채팅용
 
 // async function getUserName(userId: string) : Promise<string> {
 //   const onlineUsers = await miro.board.getOnlineUsers();
@@ -67,36 +68,6 @@ async function addCharacter() {
   //myItem.add(myNameText);
 }
 
-async function expressEmotion() {
-  const myChatBubble = await miro.board.createShape({
-    content: `<p>${chatContent}</p>`,
-    shape: "wedge_round_rectangle_callout",
-    style: {
-      fillColor: "#FFFFFF",
-      fontFamily: "arial", // Default font type for the text
-      fontSize: 50, // Default font size for the text, in dp
-      textAlign: "center", // Default horizontal alignment for the text
-      textAlignVertical: "middle", // Default vertical alignment for the text
-      borderStyle: "normal", // Default border line style
-      borderOpacity: 1.0, // Default border color opacity: no opacity
-      borderColor: "#111", // Default border color: '#ffffff` (white)
-      borderWidth: 2, // Default border width
-      fillOpacity: 1.0, // Default fill color opacity: no opacity
-    },
-    x: myItem.x + 180,
-    y: myItem.y - 120,
-    width: 300,
-    height: 250,
-  });
-
-  // Output the created item to the developer console
-  console.log(myChatBubble);
-
-  await timeout(3000); //for 3 seconds delay
-  miro.board.remove(myChatBubble);
-  //myCharacter.addWidget(myChatBubble);
-}
-
 const setKeyDownEvent = () => {
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
@@ -130,34 +101,23 @@ const App: React.FC = () => {
         <h1>Congratulations!</h1>
         <p>Welcome to Moooood</p>
       </div>
-      <input
-        width="100%"
-        className="input"
-        type="text"
-        placeholder="Type something here!"
-        id="chat-1"
-      />
+      <button className="button button-danger" onClick={addCharacter}>
+        +
+      </button>
       <div className="cs1 ce12">
-        <div className="button button-danger" onClick={addCharacter}>
-          Create your character
-        </div>
-        <div className="button button-danger" onClick={expressEmotion}>
+        <ChatBox />
+        {/* <input
+          type="text"
+          value={chat}
+          width="100px"
+          className="input"
+          onChange={(e) => setChat(e.target.value)}
+        /> */}
+        {/* <div
+          className="button button-danger"
+          onClick={() => expressEmotion(chat)}
+        >
           별 뿅
-        </div>
-
-        {/* <div className="cs1 ce12">
-          <div className="button button-primary" onClick={moveUp}>
-            UP
-          </div>
-          <div className="button button-primary" onClick={moveDown}>
-            DOWN
-          </div>
-          <div className="button button-primary" onClick={moveRight}>
-            RIGHT
-          </div>
-          <div className="button button-primary" onClick={moveLeft}>
-            LEFT
-          </div>
         </div> */}
       </div>
     </div>
