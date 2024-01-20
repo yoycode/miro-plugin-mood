@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 
 import '../src/assets/style.css';
 import { StickyNote, Image } from '@mirohq/websdk-types';
+import { DropCharacters } from './drop_characters';
 
 var myItem : Image // 내 캐릭터
 var chatContent : string // 채팅용
@@ -79,7 +80,8 @@ const App: React.FC = () => {
   return (
     <div className="grid wrapper">
       <div className="cs1 ce12">
-        <img src="/src/assets/mooody.png" alt="" />
+        {/* <img src="/src/assets/mooody.png" alt="" /> */}
+        <DropCharacters/>
       </div>
       <div className="cs1 ce12">
         <h1>Congratulations!</h1>
