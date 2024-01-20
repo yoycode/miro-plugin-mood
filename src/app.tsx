@@ -16,6 +16,34 @@ async function addCharacter() {
   });
 }
 
+async function expressEmotion() {
+  const shape = await miro.board.createShape({
+    content: '<p>안뇽</p>',
+    shape: 'star',
+    style: {
+      color: '#ff0000', // Default text color: '#1a1a1a' (black)
+      fillColor: '#ffff00', // Default shape fill color: transparent (no fill)
+      fontFamily: 'arial', // Default font type for the text
+      fontSize: 14, // Default font size for the text, in dp
+      textAlign: 'center', // Default horizontal alignment for the text
+      textAlignVertical: 'middle', // Default vertical alignment for the text
+      borderStyle: 'normal', // Default border line style
+      borderOpacity: 1.0, // Default border color opacity: no opacity
+      borderColor: '#ff7400', // Default border color: '#ffffff` (white)
+      borderWidth: 2, // Default border width
+      fillOpacity: 1.0, // Default fill color opacity: no opacity
+    },
+    x: myItem.x, // Default value: center of the board
+    y: myItem.y, // Default value: center of the board
+    width: 180,
+    height: 180,
+  });
+  
+  // Output the created item to the developer console
+  console.log(shape);
+}
+
+
 async function copyCharactor() {
   miro.board.remove(myItem);
   myItem = await miro.board.createImage({
@@ -58,7 +86,8 @@ const App: React.FC = () => {
         <p>Welcome to Moooood</p>
       </div>
       <div className="cs1 ce12">
-        <div className="button button-primary" onClick={addCharacter}>Create your character</div>
+        <div className="button button-danger" onClick={addCharacter}>Create your character</div>
+        <div className="button button-danger" onClick={expressEmotion}>별 뿅</div>
     
         <div className="cs1 ce12">
           <div className="button button-primary" onClick={moveUp}>UP</div>
