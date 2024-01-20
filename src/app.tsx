@@ -11,7 +11,7 @@ var myItem : Image // 내 캐릭터
 async function addCharacter() {
   myItem = await miro.board.createImage({
     title: 'my_character',
-    url: 'https://www.hushwish.com/wp-content/uploads/2018/12/cha_cashbee3d_turn.gif',
+    url: 'https://cdn-icons-png.flaticon.com/512/1727/1727571.png',
     width: 250
   });
 }
