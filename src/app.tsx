@@ -2,22 +2,24 @@ import * as React from 'react';
 import {createRoot} from 'react-dom/client';
 
 import '../src/assets/style.css';
-import { StickyNote } from '@mirohq/websdk-types';
+import { StickyNote, Image } from '@mirohq/websdk-types';
 
-var myItem : StickyNote // 내 캐릭터
+var myItem : Image // 내 캐릭터
 
-async function addSticky(): Promise<StickyNote> {
-  myItem = await miro.board.createStickyNote({
-    content: 'Your cute character',
+
+
+async function addCharacter() {
+  myItem = await miro.board.createImage({
+    title: 'my_character',
+    url: 'https://www.hushwish.com/wp-content/uploads/2018/12/cha_cashbee3d_turn.gif',
+    width: 250
   });
-  console.log(myItem.content);
-  return myItem
 }
 
 async function copyCharactor() {
   miro.board.remove(myItem);
-  myItem = await miro.board.createStickyNote({
-    content:  myItem.content,
+  myItem = await miro.board.createImage({
+    url:  myItem.url,
     x: myItem.x,
     y: myItem.y
   });
@@ -56,7 +58,7 @@ const App: React.FC = () => {
         <p>Welcome to Moooood</p>
       </div>
       <div className="cs1 ce12">
-        <div className="button button-primary" onClick={addSticky}>Create your character</div>
+        <div className="button button-primary" onClick={addCharacter}>Create your character</div>
     
         <div className="cs1 ce12">
           <div className="button button-primary" onClick={moveUp}>UP</div>
