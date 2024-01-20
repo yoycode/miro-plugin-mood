@@ -2,20 +2,77 @@ import * as React from 'react';
 import {createRoot} from 'react-dom/client';
 
 import '../src/assets/style.css';
-import { StickyNote, Image } from '@mirohq/websdk-types';
+import { StickyNote, Image, Frame, Text } from '@mirohq/websdk-types';
 import { DropCharacters } from './drop_characters';
 
 var myItem : Image // 내 캐릭터
+var myText : Text // 내 캐릭터 
 var chatContent : string // 채팅용
 
 
+// async function getUserName(userId: string) : Promise<string> {
+//   const onlineUsers = await miro.board.getOnlineUsers();
+//   var username= "";
+//   console.log(onlineUsers);
+
+//   onlineUsers.forEach(element => {  
+//     if(element.id == userId) {
+//       username = element.name; 
+//     }
+//   });
+//   return username;
+// }
+
+async function syncCharacter() {
+  myText.sync();
+  myItem.sync();
+}
+
+async function removeCharacter() {
+  miro.board.remove(myItem);
+  miro.board.remove(myText);
+}
+
 async function addCharacter() {
+  // var myName= await miro.board.getUserInfo()
+  //   .then(res => getUserName(res.id));
+
+  // 이름 가져오기
+  var myName= (await miro.board.getUserInfo()).name;
+
+  removeCharacter();
+
   myItem = await miro.board.createImage({
-    title: 'my_character',
+    title: myName,
     url: 'https://cdn-icons-png.flaticon.com/512/1727/1727571.png',
     width: 250
   });
+
+  // text 생성.
+  myText = await miro.board.createText({
+    content: myName,
+    style: {
+      color: '#1a1a1a', // Default value: #1a1a1a (black)
+      fillColor: 'transparent', // Default value: transparent (no fill)
+      fillOpacity: 1, // Default value: 1 (solid color)
+      fontFamily: 'arial', // Default font type for the text
+      fontSize: 80, // Default font size
+      textAlign: 'center', // Default alignment: left
+    },
+    x: myItem.x,
+    y: myItem.y - 180,
+    width: 200
+  });
+
+  // grouping
+  //myItem = await miro.board.group({items: [myNameText, characterImage]})
+
+  // add to frame
+  //myItem.add(characterImage);
+  //myItem.add(myNameText);
 }
+
+
 
 async function expressEmotion() {
   const shape = await miro.board.createShape({
@@ -45,32 +102,30 @@ async function expressEmotion() {
 }
 
 
-async function copyCharactor() {
-  miro.board.remove(myItem);
-  myItem = await miro.board.createImage({
-    url:  myItem.url,
-    x: myItem.x,
-    y: myItem.y
-  });
-}
+
 
 const movingUnit= 10;
 async function moveRight() {
+  myText.x += movingUnit;
   myItem.x += movingUnit;
-  myItem.sync();
+  syncCharacter();
 }
 async function moveLeft() {
+  myText.x -= movingUnit;
   myItem.x -= movingUnit;
-  myItem.sync();
+  syncCharacter();
 }
 async function moveUp() {
+  myText.y -= movingUnit;
   myItem.y -= movingUnit;
-  myItem.sync();
+  syncCharacter();
 }
 async function moveDown() {
+  myText.y += movingUnit;
   myItem.y += movingUnit;
-  myItem.sync();
+  syncCharacter();
 }
+
 
 const App: React.FC = () => {
   React.useEffect(() => {

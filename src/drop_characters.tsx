@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import type { DropEvent } from "@mirohq/websdk-types";
 import '../src/assets/style.css';
 
+
 const { board } = miro;
 
 export function DropCharacters() {
