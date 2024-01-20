@@ -5,7 +5,7 @@ import '../src/assets/style.css';
 import { StickyNote, Image } from '@mirohq/websdk-types';
 
 var myItem : Image // 내 캐릭터
-
+var chatContent : string // 채팅용
 
 
 async function addCharacter() {
@@ -18,13 +18,13 @@ async function addCharacter() {
 
 async function expressEmotion() {
   const shape = await miro.board.createShape({
-    content: '<p>안뇽</p>',
+    content: `<p>${chatContent}</p>`,
     shape: 'star',
     style: {
       color: '#ff0000', // Default text color: '#1a1a1a' (black)
       fillColor: '#ffff00', // Default shape fill color: transparent (no fill)
       fontFamily: 'arial', // Default font type for the text
-      fontSize: 14, // Default font size for the text, in dp
+      fontSize: 24, // Default font size for the text, in dp
       textAlign: 'center', // Default horizontal alignment for the text
       textAlignVertical: 'middle', // Default vertical alignment for the text
       borderStyle: 'normal', // Default border line style
@@ -85,6 +85,7 @@ const App: React.FC = () => {
         <h1>Congratulations!</h1>
         <p>Welcome to Moooood</p>
       </div>
+      <input width="100%" className="input" type="text" placeholder="Type something here!" id="chat-1"/>
       <div className="cs1 ce12">
         <div className="button button-danger" onClick={addCharacter}>Create your character</div>
         <div className="button button-danger" onClick={expressEmotion}>별 뿅</div>
